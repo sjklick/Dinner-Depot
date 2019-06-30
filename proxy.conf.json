@@ -1,0 +1,8 @@
+{
+	"/Distribution-Centre/api/*": {
+		"target": "http://localhost:80/Distribution-Centre/api/",
+		"changeOrigin": true,
+		"secure": false,
+		"pathRewrite": { "^/Distribution-Centre/api" : "" }
+	}
+}

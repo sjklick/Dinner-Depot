@@ -1,4 +1,6 @@
 <div class="categories">
   categories works!
-  {{categories.categories}}
+  <ul>
+    <li *ngFor="let category of categories">{{category}}</li>
+  </ul>
 </div>
