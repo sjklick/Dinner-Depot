@@ -4,9 +4,12 @@
 }
 
 .product-preview {
-	display: inline-block;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 	background-color: red;
 	width: 50vw;
-	height: 15vh;
+	height: 120px;
 	margin: 5vh;
 }

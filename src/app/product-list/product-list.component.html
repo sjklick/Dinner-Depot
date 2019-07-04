@@ -1,10 +1,10 @@
 <div class="product-container">
-  <p *ngIf="response">{{response.status}}</p>
   <div class="product-preview" *ngFor="let product of response.products">
-    {{product.name}}<br>
-    {{product.quantity}}<br>
-    {{product.description}}<br>
-    {{product.image_url}}<br>
-    {{product.price}}
+    <app-product-image></app-product-image>
+    <div>
+      {{product.name}}<br>
+      {{product.description}}<br>
+      {{product.quantity}} in stock. ${{product.price}}
+    </div>
   </div>
 </div>
