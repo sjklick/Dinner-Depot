@@ -1,6 +1,6 @@
 <div class="product-container">
   <div class="product-preview" *ngFor="let product of response.products">
-    <app-product-image></app-product-image>
+    <app-product-image [imgSrc]=product.image_url></app-product-image>
     <div>
       {{product.name}}<br>
       {{product.description}}<br>
