@@ -1,6 +1,3 @@
-<div class="categories">
-  categories works!
-  <ul>
-    <li *ngFor="let category of categories">{{category}}</li>
-  </ul>
-</div>
+<select>
+  <option *ngFor="let category of categories" value="{{category}}">{{category}}</option>
+</select>

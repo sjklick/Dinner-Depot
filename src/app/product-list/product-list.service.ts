@@ -6,8 +6,8 @@ const httpOptions = {
 };
 
 const postBody = {
-	page: 1,
-	limit: 3,
+	page: 2,
+	limit: 4,
 	category: "all",
 	quantity: true,
 	description: true,
