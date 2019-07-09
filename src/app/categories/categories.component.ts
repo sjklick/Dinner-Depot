@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from './categories.service';
+import { CategorySelectService } from '../category-select.service';
 
 @Component({
   selector: 'app-categories',
@@ -11,14 +12,14 @@ import { CategoriesService } from './categories.service';
 export class CategoriesComponent implements OnInit {
   categories:Array<string>;
 
-  constructor(private catService: CategoriesService) { }
+  constructor(private catService: CategoriesService, private catSelectService: CategorySelectService) { }
 
   ngOnInit() {
     this.catService.getCategories().subscribe((data: Array<string>) => this.categories = data);
   }
 
-  showCategories() {
-    this.catService.getCategories().subscribe((data: Array<string>) => this.categories = data);
+  onCategoryChange(value: string) {
+    this.catSelectService.onCategoryChange.emit(value);
   }
 
 }

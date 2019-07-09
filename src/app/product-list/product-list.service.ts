@@ -5,16 +5,6 @@ const httpOptions = {
 	headers: new HttpHeaders({ "Content-Type": "application/json"})
 };
 
-const postBody = {
-	page: 2,
-	limit: 4,
-	category: "all",
-	quantity: true,
-	description: true,
-	image_url: true,
-	price: true
-};
-
 export class Product {
 	name: string;
 	quantity: number;
@@ -33,9 +23,19 @@ export class Page {
 
 @Injectable()
 export class ProductListService {
+	public postBody = {
+		page: 1,
+		limit: 5,
+		category: "all",
+		quantity: true,
+		description: true,
+		image_url: true,
+		price: true
+	};
+
 	constructor(private http: HttpClient) {}
 
 	getProducts() {
-		return this.http.post<Page>('Distribution-Centre/api/products/page/get.php', postBody, httpOptions);
+		return this.http.post<Page>('Distribution-Centre/api/products/page/get.php', this.postBody, httpOptions);
 	}
 }
