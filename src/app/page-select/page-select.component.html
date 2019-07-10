@@ -1,0 +1,12 @@
+<div class="page-select-container">
+  <div class="page-choice">
+    <p *ngIf="pageInfo.pages">{{pageInfo.pages}}</p>
+  </div>
+  <div class="n-items">
+    <button value=5 (click)='onItemsClick($event.target.value)'>5</button>
+    <button value=10 (click)='onItemsClick($event.target.value)'>10</button>
+    <button value=15 (click)='onItemsClick($event.target.value)'>15</button>
+    <button value=20 (click)='onItemsClick($event.target.value)'>20</button>
+    <p>per page</p>
+  </div>
+</div>
