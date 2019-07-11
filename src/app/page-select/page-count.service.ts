@@ -6,7 +6,8 @@ const httpOptions = {
 };
 
 export class PageCountInfo {
-	status: string;
+	status: boolean;
+	error: string;
 	limit: number;
 	pages: number;
 	category: string;
@@ -14,10 +15,14 @@ export class PageCountInfo {
 
 @Injectable()
 export class PageCountService {
+	public postBody = {
+		limit: 5,
+		category: "all",
+	};
+
 	constructor(private http: HttpClient) {}
 
-	getPageCount(category: string, limit: number) {
-		//return this.http.get<PageCountInfo>('Distribution-Centre/api/products/page_count/get.php?category='+category+'?limit='+limit.toString(), httpOptions);
-		return this.http.get<PageCountInfo>('Distribution-Centre/api/products/page_count/get.php?limit='+limit.toString(), httpOptions);
+	getPageCount() {
+		return this.http.post<PageCountInfo>('Distribution-Centre/api/products/page_count/get.php', this.postBody, httpOptions);
 	}
 }

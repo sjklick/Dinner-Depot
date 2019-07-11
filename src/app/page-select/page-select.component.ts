@@ -19,16 +19,16 @@ export class PageSelectComponent implements OnInit {
 
   ngOnInit() {
     this.catSelect.onCategoryChange.subscribe((value: string) => {this.updateCategory(value)});
-    this.countService.getPageCount(this.pageInfo.category, this.pageInfo.limit).subscribe((info: PageCountInfo) => {this.pageInfo = info});
+    this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});
   }
 
   onItemsClick(value: number) {
-    this.pageInfo.limit = value;
-    this.countService.getPageCount(this.pageInfo.category, this.pageInfo.limit).subscribe((info: PageCountInfo) => {this.pageInfo = info});
+    this.countService.postBody.limit = value;
+    this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});
   }
 
   updateCategory(value: string) {
-    this.pageInfo.category = value;
-    this.countService.getPageCount(this.pageInfo.category, this.pageInfo.limit).subscribe((info: PageCountInfo) => {this.pageInfo = info});
+    this.countService.postBody.category = value;
+    this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});
 	}
 }
