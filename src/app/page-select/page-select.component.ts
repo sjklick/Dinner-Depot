@@ -12,9 +12,8 @@ export class PageSelectComponent implements OnInit {
   private pageInfo: PageCountInfo;
 
   constructor(private countService: PageCountService, private catSelect: CategorySelectService) {
-    this.pageInfo = new PageCountInfo();
-    this.pageInfo.category = 'all';
-    this.pageInfo.limit = 5;
+    this.countService.postBody.limit = 5;
+    this.countService.postBody.category = 'all';
   }
 
   ngOnInit() {
@@ -27,6 +26,10 @@ export class PageSelectComponent implements OnInit {
     this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});
   }
 
+  onPageClick(value: number) {
+    console.log('Selected page '+value.toString()+'.');
+  }
+  
   updateCategory(value: string) {
     this.countService.postBody.category = value;
     this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});

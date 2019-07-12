@@ -1,6 +1,8 @@
 <div class="page-select-container">
   <div class="page-choice">
-    <p *ngIf="pageInfo.pages">{{pageInfo.pages}}</p>
+    <ng-container *ngIf="pageInfo.pages">
+      <button *ngFor='let item of [].constructor(pageInfo.pages); let pg = index' value='{{pg+1}}' (click)='onPageClick($event.target.value)'>{{pg+1}}</button>
+    </ng-container>
   </div>
   <div class="n-items">
     <button value=5 (click)='onItemsClick($event.target.value)'>5</button>
