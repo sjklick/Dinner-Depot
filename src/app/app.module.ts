@@ -14,7 +14,7 @@ import { PageSelectComponent } from './page-select/page-select.component';
     ProductListComponent,
     CategoriesComponent,
     ProductImageComponent,
-    PageSelectComponent,
+    PageSelectComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategorySelectService } from '../category-select.service';
 import { PageCountService, PageCountInfo } from './page-count.service';
+import { PageSelectService } from '../page-select.service';
 
 @Component({
   selector: 'app-page-select',
@@ -11,7 +12,7 @@ import { PageCountService, PageCountInfo } from './page-count.service';
 export class PageSelectComponent implements OnInit {
   private pageInfo: PageCountInfo;
 
-  constructor(private countService: PageCountService, private catSelect: CategorySelectService) {
+  constructor(private countService: PageCountService, private catSelect: CategorySelectService, private pageSelect: PageSelectService) {
     this.countService.postBody.limit = 5;
     this.countService.postBody.category = 'all';
   }
@@ -26,8 +27,8 @@ export class PageSelectComponent implements OnInit {
     this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});
   }
 
-  onPageClick(value: number) {
-    console.log('Selected page '+value.toString()+'.');
+  onPageClick(value: string) {
+    this.pageSelect.onPageChange.emit(parseInt(value));
   }
   
   updateCategory(value: string) {

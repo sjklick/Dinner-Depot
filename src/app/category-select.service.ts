@@ -5,5 +5,5 @@ import { Injectable, EventEmitter } from '@angular/core';
 })
 export class CategorySelectService {
   constructor() { }
-  onCategoryChange: EventEmitter<any> = new EventEmitter();
+  onCategoryChange: EventEmitter<string> = new EventEmitter();
 }

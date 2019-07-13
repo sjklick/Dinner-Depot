@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductListService } from './product-list.service';
 import { Page } from './product-list.service';
 import { CategorySelectService } from '../category-select.service';
+import { PageSelectService } from '../page-select.service';
 
 @Component({
   selector: 'app-product-list',
@@ -13,15 +14,23 @@ import { CategorySelectService } from '../category-select.service';
 export class ProductListComponent implements OnInit {
   private response: Page;
 
-  constructor(private prodService: ProductListService, private catSelect: CategorySelectService) {}
+  constructor(private prodService: ProductListService, private catSelect: CategorySelectService, private pageSelect: PageSelectService) {}
 
   ngOnInit() {
     this.catSelect.onCategoryChange.subscribe((value: string) => {this.updateCategory(value)});
+    this.pageSelect.onPageChange.subscribe((page: number) => {this.updatePage(page)});
     this.prodService.getProducts().subscribe((data: Page) => this.response = data);
   }
 
   updateCategory(value: string) {
 		this.prodService.postBody.category = value;
 		this.prodService.getProducts().subscribe((data: Page) => this.response = data);
-	}
+  }
+  
+  updatePage(page: number) {
+    if (this.prodService.postBody.page != page) {
+      this.prodService.postBody.page = page;
+      this.prodService.getProducts().subscribe((data: Page) => this.response = data);
+    }
+  }
 }
