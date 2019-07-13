@@ -25,7 +25,8 @@ export class ProductListComponent implements OnInit {
   }
 
   updateCategory(value: string) {
-		this.prodService.postBody.category = value;
+    this.prodService.postBody.category = value;
+    this.prodService.postBody.page = 1;
 		this.prodService.getProducts().subscribe((data: Page) => this.response = data);
   }
   
