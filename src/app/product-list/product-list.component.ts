@@ -22,7 +22,6 @@ export class ProductListComponent implements OnInit {
     this.pageSelect.onPageChange.subscribe((page: number) => {this.updatePage(page)});
     this.limitService.onLimitChange.subscribe((limit: number) => {this.updateLimit(limit)});
     this.pageSelect.onPageChange.emit(1);
-    this.prodService.getProducts().subscribe((data: Page) => this.response = data);
   }
 
   updateCategory(value: string) {
@@ -31,10 +30,8 @@ export class ProductListComponent implements OnInit {
   }
   
   updatePage(page: number) {
-    if (this.prodService.postBody.page != page) {
-      this.prodService.postBody.page = page;
-      this.prodService.getProducts().subscribe((data: Page) => this.response = data);
-    }
+    this.prodService.postBody.page = page;
+    this.prodService.getProducts().subscribe((data: Page) => this.response = data);
   }
 
   updateLimit(limit: number) {

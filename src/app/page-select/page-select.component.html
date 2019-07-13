@@ -1,20 +1,61 @@
 <div class="page-select-container">
   <div class="page-choice">
     <ng-container *ngIf="pageInfo.pages">
-      <ng-container *ngIf='page > 1'>
-        <button (click)='onPrevious()'>prev</button>
-      </ng-container>
-      <button *ngFor='let item of [].constructor(pageInfo.pages); let pg = index' value='{{pg+1}}' (click)='onPageClick($event.target.value)'>{{pg+1}}</button>
-      <ng-container *ngIf='page < pageInfo.pages'>
-          <button (click)='onNext()'>next</button>
+      <ng-container *ngIf='page'>
+        <ng-container *ngIf='page > 1'>
+          <button (click)='onPrevious()'>prev</button>
+        </ng-container>
+        <ng-container *ngIf='pageInfo.pages <= 7'>
+          <ng-container *ngFor='let item of [].constructor(pageInfo.pages); let pg = index'>
+            <button *ngIf='page == pg+1' class='selected' value='{{pg+1}}' (click)='onPageClick($event.target.value)'>{{pg+1}}</button>
+            <button *ngIf='page != pg+1' value='{{pg+1}}' (click)='onPageClick($event.target.value)'>{{pg+1}}</button>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf='pageInfo.pages >= 8'>
+          <button *ngIf='page == 1' class='selected' value='1' (click)='onPageClick($event.target.value)'>1</button>
+          <button *ngIf='page != 1' value='1' (click)='onPageClick($event.target.value)'>1</button>
+          <ng-container *ngIf='page <= 4'>
+              <ng-container *ngFor='let item of [].constructor(4); let i = index'>
+                <button *ngIf='page == 2+i' class='selected' value='{{2+i}}' (click)='onPageClick($event.target.value)'>{{2+i}}</button>
+                <button *ngIf='page != 2+i' value='{{2+i}}' (click)='onPageClick($event.target.value)'>{{2+i}}</button>
+              </ng-container>
+              <span>...</span>
+          </ng-container>
+          <ng-container *ngIf='(page > 4) && (page < pageInfo.pages-3)'>
+            <span>...</span>
+            <ng-container *ngFor='let item of [].constructor(5); let i = index'>
+                <button *ngIf='page == page-2+i' class='selected' value='{{page-2+i}}' (click)='onPageClick($event.target.value)'>{{page-2+i}}</button>
+                <button *ngIf='page != page-2+i' value='{{page-2+i}}' (click)='onPageClick($event.target.value)'>{{page-2+i}}</button>
+            </ng-container>
+            <span>...</span>
+          </ng-container>
+          <ng-container *ngIf='page >= pageInfo.pages-3'>
+            <span>...</span>
+            <ng-container *ngFor='let item of [].constructor(4); let i = index'>
+                <button *ngIf='page == pageInfo.pages-4+i' class='selected' value='{{pageInfo.pages-4+i}}' (click)='onPageClick($event.target.value)'>{{pageInfo.pages-4+i}}</button>
+                <button *ngIf='page != pageInfo.pages-4+i' value='{{pageInfo.pages-4+i}}' (click)='onPageClick($event.target.value)'>{{pageInfo.pages-4+i}}</button>
+            </ng-container>
+          </ng-container>
+          <button *ngIf='page == pageInfo.pages' class='selected' value='{{pageInfo.pages}}' (click)='onPageClick($event.target.value)'>{{pageInfo.pages}}</button>
+          <button *ngIf='page != pageInfo.pages' value='{{pageInfo.pages}}' (click)='onPageClick($event.target.value)'>{{pageInfo.pages}}</button>
+        </ng-container>
+        <ng-container *ngIf='page < pageInfo.pages'>
+            <button (click)='onNext()'>next</button>
+        </ng-container>
       </ng-container>
     </ng-container>
   </div>
   <div class="n-items">
-    <button value=5 (click)='onItemsClick($event.target.value)'>5</button>
-    <button value=10 (click)='onItemsClick($event.target.value)'>10</button>
-    <button value=15 (click)='onItemsClick($event.target.value)'>15</button>
-    <button value=20 (click)='onItemsClick($event.target.value)'>20</button>
+    <button *ngIf='limit == 1' class='selected' value=1 (click)='onItemsClick($event.target.value)'>1</button>
+    <button *ngIf='limit != 1' value=1 (click)='onItemsClick($event.target.value)'>1</button>
+    <button *ngIf='limit == 5' class='selected' value=5 (click)='onItemsClick($event.target.value)'>5</button>
+    <button *ngIf='limit != 5' value=5 (click)='onItemsClick($event.target.value)'>5</button>
+    <button *ngIf='limit == 10' class='selected' value=10 (click)='onItemsClick($event.target.value)'>10</button>
+    <button *ngIf='limit != 10' value=10 (click)='onItemsClick($event.target.value)'>10</button>
+    <button *ngIf='limit == 15' class='selected' value=15 (click)='onItemsClick($event.target.value)'>15</button>
+    <button *ngIf='limit != 15' value=15 (click)='onItemsClick($event.target.value)'>15</button>
+    <button *ngIf='limit == 20' class='selected' value=20 (click)='onItemsClick($event.target.value)'>20</button>
+    <button *ngIf='limit != 20' value=20 (click)='onItemsClick($event.target.value)'>20</button>
     <p>per page</p>
   </div>
 </div>

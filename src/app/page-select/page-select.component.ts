@@ -13,8 +13,11 @@ import { LimitSelectService } from '../limit-select.service';
 export class PageSelectComponent implements OnInit {
   private pageInfo: PageCountInfo;
   private page: number;
+  private limit: number;
 
   constructor(private countService: PageCountService, private catSelect: CategorySelectService, private pageSelect: PageSelectService, private limitService: LimitSelectService) {
+    this.page = 1;
+    this.limit = 5;
     this.countService.postBody.limit = 5;
     this.countService.postBody.category = 'all';
   }
@@ -26,13 +29,16 @@ export class PageSelectComponent implements OnInit {
   }
 
   onItemsClick(value: string) {
+    this.limit = parseInt(value);
     this.countService.postBody.limit = parseInt(value);
     this.limitService.onLimitChange.emit(parseInt(value));
     this.countService.getPageCount().subscribe((info: PageCountInfo) => {this.pageInfo = info});
   }
 
   onPageClick(value: string) {
-    this.pageSelect.onPageChange.emit(parseInt(value));
+    if (this.page != parseInt(value)) {
+      this.pageSelect.onPageChange.emit(parseInt(value));
+    }
   }
   
   updatePage(page: number) {

@@ -10,3 +10,19 @@
 .n-items {
 	display: flex;
 }
+
+button {
+	margin: 2px;
+	min-width: 30px;
+	border-style: none;
+	border-radius: 15%;
+	background-color: lightgrey;
+}
+
+button:hover {
+	background-color: orange;
+}
+
+button.selected {
+	background-color: orange;
+}
