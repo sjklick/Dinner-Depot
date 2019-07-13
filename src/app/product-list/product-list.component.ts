@@ -21,13 +21,13 @@ export class ProductListComponent implements OnInit {
     this.catSelect.onCategoryChange.subscribe((value: string) => {this.updateCategory(value)});
     this.pageSelect.onPageChange.subscribe((page: number) => {this.updatePage(page)});
     this.limitService.onLimitChange.subscribe((limit: number) => {this.updateLimit(limit)});
+    this.pageSelect.onPageChange.emit(1);
     this.prodService.getProducts().subscribe((data: Page) => this.response = data);
   }
 
   updateCategory(value: string) {
     this.prodService.postBody.category = value;
-    this.prodService.postBody.page = 1;
-		this.prodService.getProducts().subscribe((data: Page) => this.response = data);
+    this.pageSelect.onPageChange.emit(1);
   }
   
   updatePage(page: number) {
@@ -40,8 +40,7 @@ export class ProductListComponent implements OnInit {
   updateLimit(limit: number) {
     if (this.prodService.postBody.limit != limit) {
       this.prodService.postBody.limit = limit;
-      this.prodService.postBody.page = 1;
-      this.prodService.getProducts().subscribe((data: Page) => this.response = data);
+      this.pageSelect.onPageChange.emit(1);
     }
   }
 }
