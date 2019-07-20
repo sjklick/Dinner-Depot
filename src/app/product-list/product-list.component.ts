@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductListService } from './product-list.service';
 import { Page } from './product-list.service';
+import { Product } from './product-list.service';
 import { CategorySelectService } from '../category-select.service';
 import { PageSelectService } from '../page-select.service';
 import { LimitSelectService } from '../limit-select.service';
+import { CartItemService, CartItem } from '../cart-item.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +17,7 @@ import { LimitSelectService } from '../limit-select.service';
 export class ProductListComponent implements OnInit {
   private response: Page;
 
-  constructor(private prodService: ProductListService, private catSelect: CategorySelectService, private pageSelect: PageSelectService, private limitService: LimitSelectService) {}
+  constructor(private prodService: ProductListService, private catSelect: CategorySelectService, private pageSelect: PageSelectService, private limitService: LimitSelectService, private itemServ: CartItemService) {}
 
   ngOnInit() {
     this.catSelect.onCategoryChange.subscribe((value: string) => {this.updateCategory(value)});
@@ -39,5 +41,13 @@ export class ProductListComponent implements OnInit {
       this.prodService.postBody.limit = limit;
       this.pageSelect.onPageChange.emit(1);
     }
+  }
+
+  addItem(product: Product) {
+    let cartItem: CartItem = new CartItem;
+    cartItem.name = product.name;
+    cartItem.price = parseFloat(product.price);
+    cartItem.quantity = 1;
+    this.itemServ.addItem(cartItem);
   }
 }
