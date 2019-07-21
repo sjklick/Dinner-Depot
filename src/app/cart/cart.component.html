@@ -2,8 +2,20 @@
   <table>
     <tr *ngFor='let item of items'>
       <td>{{item.name}}</td>
-      <td>{{item.quantity}}</td>
-      <td>{{item.price}}</td>
+      <td>{{item.quantity}}@{{item.price}}</td>
+    </tr>
+    <tr></tr>
+    <tr>
+      <td>Subtotal:</td>
+      <td>{{subTotal}}</td>
+    </tr>
+    <tr>
+      <td>Taxes:</td>
+      <td>{{taxes}}</td>
+    </tr>
+    <tr>
+      <td>Total:</td>
+      <td>{{total}}</td>
     </tr>
   </table>
   <button (click)='onHideClick()'>Hide Cart</button>

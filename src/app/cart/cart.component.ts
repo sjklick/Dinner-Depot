@@ -10,21 +10,26 @@ import { CartItem } from '../cart-item.service';
 })
 export class CartComponent implements OnInit {
   private items: Array<CartItem>;
+  private subTotal: number;
+  private taxes: number;
+  private total: number;
 
   constructor(private toggle: ToggleCartService, private itemServ: CartItemService) {}
 
   ngOnInit() {
-    this.items = new Array<CartItem>();
-    console.log('cart-component init');
     this.items = this.itemServ.getItems();
-    console.log(this.items.length);
-    //this.itemServ.onCartItemChange.subscribe((items: Array<CartItem>) => {this.items = items});
-    console.log(this.items.length);
-    //this.itemServ.getItems().subscribe((items: Array<CartItem>) => {this.items = items});
+    this.cartChange();
+    this.itemServ.onCartChange.subscribe((val: boolean) => {this.cartChange(val)});
   }
 
   onHideClick() {
     this.toggle.onToggleCart.emit(false);
+  }
+
+  cartChange(val: boolean) {
+    this.subTotal = this.itemServ.getSubtotal();
+    this.taxes = this.itemServ.getTaxes();
+    this.total = this.itemServ.getTotal();
   }
 
 }
