@@ -3,23 +3,34 @@ import { ToggleCartService } from '../toggle-cart.service';
 import { CartItemService } from '../cart-item.service';
 import { CartItem } from '../cart-item.service';
 
+enum State {
+  Preview,
+  Checkout,
+  Processing
+};
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  State = State;
+  private state: State;
   private items: Array<CartItem>;
   private subTotal: number;
   private taxes: number;
   private total: number;
 
-  constructor(private toggle: ToggleCartService, private itemServ: CartItemService) {}
+  constructor(private toggle: ToggleCartService, private itemServ: CartItemService) {
+    this.state = State.Preview;
+  }
 
   ngOnInit() {
     this.items = this.itemServ.getItems();
-    this.cartChange();
+    this.cartChange(true);
     this.itemServ.onCartChange.subscribe((val: boolean) => {this.cartChange(val)});
+
   }
 
   onHideClick() {
@@ -30,6 +41,10 @@ export class CartComponent implements OnInit {
     this.subTotal = this.itemServ.getSubtotal();
     this.taxes = this.itemServ.getTaxes();
     this.total = this.itemServ.getTotal();
+  }
+
+  onOpenCheckout() {
+    this.state = State.Checkout;
   }
 
 }
