@@ -23,14 +23,18 @@
     <button (click)='onOpenCheckout()'>Proceed to Checkout</button>
   </ng-container>
   <ng-container *ngIf='state == State.Checkout'>
-    <form>
-      Name:<br>
-      <input type='text' name='name' /><br>
-      Email:<br>
-      <input type='text' name='email' /><br>
-      <input type='checkbox' name='confirmReceived'>Send me a confirmation email with my fictitious order details.<br>
-      <input type='checkbox' name='confirmShipped'>Send me a notification email when my fictitious order ships.<br>
-      <input type='submit' value='Submit' />
-    </form>
+    Name:<br>
+    <input type='text' name='name' [disabled]='!(sendReceived || sendShipped)' /><br>
+    Email:<br>
+    <input type='text' name='email' [disabled]='!(sendReceived || sendShipped)' /><br>
+    <input type='checkbox' (click)='onConfirmReceiveClick($event.target.checked)'>Send me a confirmation email with my fictitious order details.<br>
+    <input type='checkbox' (click)='onConfirmShipClick($event.target.checked)'>Send me a notification email when my fictitious order ships.<br>
+    <button (click)='onPlaceOrder()'>Place Fictitious Order</button>
+  </ng-container>
+  <ng-container *ngIf='state == State.Processing'>
+    <div class='outer-div'>
+      <div class='processing-animation'>
+      </div>
+    </div>
   </ng-container>
 </div>

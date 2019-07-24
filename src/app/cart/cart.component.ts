@@ -21,9 +21,13 @@ export class CartComponent implements OnInit {
   private subTotal: number;
   private taxes: number;
   private total: number;
+  private sendReceived: boolean;
+  private sendShipped: boolean;
 
   constructor(private toggle: ToggleCartService, private itemServ: CartItemService) {
     this.state = State.Preview;
+    this.sendReceived = false;
+    this.sendShipped = false;
   }
 
   ngOnInit() {
@@ -47,4 +51,15 @@ export class CartComponent implements OnInit {
     this.state = State.Checkout;
   }
 
+  onConfirmReceiveClick(checked: boolean) {
+    this.sendReceived = checked;
+  }
+
+  onConfirmShipClick(checked: boolean) {
+    this.sendShipped = checked;
+  }
+
+  onPlaceOrder() {
+    this.state = State.Processing;
+  }
 }

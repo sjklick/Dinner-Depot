@@ -6,3 +6,32 @@
 	left: 15vw;
 	background-color: lightseagreen;
 }
+
+.outer-div {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.processing-animation {
+	margin: auto;
+	width: 20vmin;
+	height: 20vmin;
+	border: 3vmin solid #c0c0c0; /* HTML Silver */
+	border-top: 3vmin solid olive;
+	border-right: 3vmin solid yellow;
+	border-bottom: 3vmin solid olive;
+	border-left: 3vmin solid yellow;
+	border-radius: 50%;
+	background-color: lightseagreen;
+	animation: spin 1.5s linear infinite;
+	margin-top: 5vmin;
+	margin-bottom: 5vmin;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
