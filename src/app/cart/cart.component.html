@@ -38,8 +38,22 @@
     </div>
   </ng-container>
   <ng-container *ngIf='state == State.Result'>
-    {{orderResponse.success}}
-    <p *ngIf='!orderResponse.success'>{{orderResponse.error}}</p>
-    <p *ngIf='orderResponse.success'>{{orderResponse.orderId}}</p>
+    <p *ngIf='customerName'>Thank you, {{customerName}}!</p>
+    <ng-container *ngIf='orderResponse.success'>
+      <p>Your fictitious order has been placed (order ID: {{orderResponse.orderId}}).</p>
+      <p *ngIf='sendReceived'>A confirmation email containing your order details has been sent to {{customerEmail}}.</p>
+      <p>You can watch your order being processed in real-time <a href="Distribution-Centre/view">here</a>!</p>
+    </ng-container>
+    <ng-container *ngIf='!orderResponse.success'>
+      <p>Unfortunately, we are unable to place your fictitious order at this time.</p>
+      <p *ngIf='orderResponse.error=="invalid_order_request_format"'>An error in the order request was encountered.</p>
+      <p *ngIf='orderResponse.error=="server_side"'>Our servers are experiencing technical issues.</p>
+      <p *ngIf='orderResponse.error=="customer_info_refused"'>An invalid email was entered.</p>
+      <p *ngIf='orderResponse.error=="insufficient_stock"'>There is insufficient stock to satisfy your request.</p>
+      <p *ngIf='orderResponse.error=="maximum_items_exceeded"'>Each order is restricted to a maximum of twelve items.</p>
+      <p *ngIf='orderResponse.error=="maximum_orders_exceeded"'>We are experiencing unusually high volumes of orders.</p>
+      <p>Please try again.</p>
+      <p>You can view our distribution centre in real-time <a href="Distribution-Centre/view">here</a>!</p>
+    </ng-container>
   </ng-container>
 </div>

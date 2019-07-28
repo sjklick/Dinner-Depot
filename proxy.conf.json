@@ -4,5 +4,17 @@
 		"changeOrigin": true,
 		"secure": false,
 		"pathRewrite": { "^/Distribution-Centre/api" : "" }
+	},
+	"/Distribution-Centre/view": {
+		"target": "http://localhost:80/Distribution-Centre/view/index.html",
+		"changeOrigin": true,
+		"secure": false,
+		"pathRewrite": { "^/Distribution-Centre/view" : "" }
+	},
+	"view.js": {
+		"target": "http://localhost:80/Distribution-Centre/view/view.js",
+		"changeOrigin": true,
+		"secure": false,
+		"pathRewrite": { "^view.js" : "" }
 	}
 }

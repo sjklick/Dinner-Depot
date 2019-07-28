@@ -26,6 +26,8 @@ export class CartComponent implements OnInit {
   private total: number;
   private sendReceived: boolean;
   private sendShipped: boolean;
+  private customerName: string;
+  private customerEmail: string;
   @ViewChild('nameField', {static: false}) nameField: ElementRef;
   @ViewChild('emailField', {static: false}) emailField: ElementRef;
   private orderResponse: OrderResponse;
@@ -74,8 +76,10 @@ export class CartComponent implements OnInit {
     this.state = State.Processing;
     order.confirmReceived = this.sendReceived;
     order.confirmShipped = this.sendShipped;
-    order.customer = this.nameField.nativeElement.value;
-    order.email = this.emailField.nativeElement.value;
+    this.customerName = this.nameField.nativeElement.value;
+    this.customerEmail = this.emailField.nativeElement.value;
+    order.customer = this.customerName;
+    order.email = this.customerEmail;
     order.items = new Array<Item>();
     for (let item of this.items) {
       let next = new Item;
