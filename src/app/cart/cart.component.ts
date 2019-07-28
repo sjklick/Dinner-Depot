@@ -1,17 +1,20 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, ViewChild, ElementRef } from '@angular/core';
 import { ToggleCartService } from '../toggle-cart.service';
 import { CartItemService } from '../cart-item.service';
 import { CartItem } from '../cart-item.service';
+import { CartOrderService, Order, Item, OrderResponse } from './cart.order.service';
 
 enum State {
   Preview,
   Checkout,
-  Processing
+  Processing,
+  Result
 };
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
+  providers: [ CartOrderService ],
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
@@ -23,8 +26,11 @@ export class CartComponent implements OnInit {
   private total: number;
   private sendReceived: boolean;
   private sendShipped: boolean;
+  @ViewChild('nameField', {static: false}) nameField: ElementRef;
+  @ViewChild('emailField', {static: false}) emailField: ElementRef;
+  private orderResponse: OrderResponse;
 
-  constructor(private toggle: ToggleCartService, private itemServ: CartItemService) {
+  constructor(private toggle: ToggleCartService, private itemServ: CartItemService, private orderServ: CartOrderService) {
     this.state = State.Preview;
     this.sendReceived = false;
     this.sendShipped = false;
@@ -34,7 +40,6 @@ export class CartComponent implements OnInit {
     this.items = this.itemServ.getItems();
     this.cartChange(true);
     this.itemServ.onCartChange.subscribe((val: boolean) => {this.cartChange(val)});
-
   }
 
   onHideClick() {
@@ -59,7 +64,25 @@ export class CartComponent implements OnInit {
     this.sendShipped = checked;
   }
 
+  onOrderResponse(response: OrderResponse) {
+    this.orderResponse = response;
+    this.state = State.Result;
+  }
+
   onPlaceOrder() {
+    let order = new Order;
     this.state = State.Processing;
+    order.confirmReceived = this.sendReceived;
+    order.confirmShipped = this.sendShipped;
+    order.customer = this.nameField.nativeElement.value;
+    order.email = this.emailField.nativeElement.value;
+    order.items = new Array<Item>();
+    for (let item of this.items) {
+      let next = new Item;
+      next.name = item.name;
+      next.quantity = item.quantity;
+      order.items.push(next);
+    }
+    this.orderServ.placeOrder(order).subscribe((response: OrderResponse) => {this.onOrderResponse(response)});
   }
 }

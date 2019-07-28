@@ -24,9 +24,9 @@
   </ng-container>
   <ng-container *ngIf='state == State.Checkout'>
     Name:<br>
-    <input type='text' name='name' [disabled]='!(sendReceived || sendShipped)' /><br>
+    <input #nameField type='text' [disabled]='!(sendReceived || sendShipped)' /><br>
     Email:<br>
-    <input type='text' name='email' [disabled]='!(sendReceived || sendShipped)' /><br>
+    <input #emailField type='text' [disabled]='!(sendReceived || sendShipped)' /><br>
     <input type='checkbox' (click)='onConfirmReceiveClick($event.target.checked)'>Send me a confirmation email with my fictitious order details.<br>
     <input type='checkbox' (click)='onConfirmShipClick($event.target.checked)'>Send me a notification email when my fictitious order ships.<br>
     <button (click)='onPlaceOrder()'>Place Fictitious Order</button>
@@ -36,5 +36,10 @@
       <div class='processing-animation'>
       </div>
     </div>
+  </ng-container>
+  <ng-container *ngIf='state == State.Result'>
+    {{orderResponse.success}}
+    <p *ngIf='!orderResponse.success'>{{orderResponse.error}}</p>
+    <p *ngIf='orderResponse.success'>{{orderResponse.orderId}}</p>
   </ng-container>
 </div>
