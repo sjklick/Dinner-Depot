@@ -1,2 +1,3 @@
-<button (click)='onIconClick()'>View Cart</button>
+<button *ngIf='itemCount == 0' (click)='onIconClick()'>View Cart</button>
+<button *ngIf='itemCount > 0' (click)='onIconClick()'>View Cart ({{itemCount}})</button>
 <app-cart *ngIf=seeCart></app-cart>

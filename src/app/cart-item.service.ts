@@ -11,6 +11,7 @@ export class CartItem {
 })
 export class CartItemService {
   private items: Array<CartItem> = new Array<CartItem>();
+  private itemCount: number = 0;
   private subTotal: number = 0.00;
   private taxes: number = 0.00;
   private total: number = 0.00;
@@ -19,6 +20,7 @@ export class CartItemService {
 
   addItem(item: CartItem) {
     this.subTotal += item.price*item.quantity;
+    this.itemCount += item.quantity;
     this.taxes = 0.13*this.subTotal;
     this.total = this.subTotal+this.taxes;
     for (let i=0; i<this.items.length; i++) {
@@ -30,6 +32,10 @@ export class CartItemService {
     }
     this.items.push(item);
     this.onCartChange.emit(true);
+  }
+
+  getItemCount() {
+    return this.itemCount;
   }
 
   getItems() {
