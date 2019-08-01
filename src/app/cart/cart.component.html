@@ -43,6 +43,7 @@
       <p>Your fictitious order has been placed (order ID: {{orderResponse.orderId}}).</p>
       <p *ngIf='sendReceived'>A confirmation email containing your order details has been sent to {{customerEmail}}.</p>
       <p>You can watch your order being processed in real-time <a href="Distribution-Centre/view">here</a>!</p>
+      <button (click)='onEndSession()'>Close</button>
     </ng-container>
     <ng-container *ngIf='!orderResponse.success'>
       <p>Unfortunately, we are unable to place your fictitious order at this time.</p>

@@ -89,4 +89,10 @@ export class CartComponent implements OnInit {
     }
     this.orderServ.placeOrder(order).subscribe((response: OrderResponse) => {this.onOrderResponse(response)});
   }
+
+  onEndSession() {
+    this.itemServ.clearCart();
+    this.onHideClick();
+    this.state = State.Preview;
+  }
 }

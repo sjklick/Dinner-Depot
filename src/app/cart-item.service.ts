@@ -53,4 +53,13 @@ export class CartItemService {
   getTotal() {
     return this.total;
   }
+
+  clearCart() {
+    this.subTotal = 0.00;
+    this.itemCount = 0;
+    this.taxes = 0.00;
+    this.total = 0.00;
+    this.onCartChange.emit(true);
+    this.items.length = 0;
+  }
 }
