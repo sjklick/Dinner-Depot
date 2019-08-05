@@ -34,6 +34,35 @@ export class CartItemService {
     this.onCartChange.emit(true);
   }
 
+  increaseQuantity(name: string) {
+    for (let item of this.items) {
+      if (item.name == name) {
+        item.quantity++;
+        this.subTotal += item.price;
+        this.itemCount++;
+        this.taxes = 0.13*this.subTotal;
+        this.total = this.subTotal+this.taxes;
+        this.onCartChange.emit(true);
+        return;
+      }
+    }
+  }
+
+  decreaseQuantity(name: string) {
+    for (let item of this.items) {
+      if (item.name == name) {
+        if (item.quantity > 1) item.quantity--;
+        else this.items.splice(this.items.lastIndexOf(item), 1);
+        this.subTotal -= item.price;
+        this.itemCount--;
+        this.taxes = 0.13*this.subTotal;
+        this.total = this.subTotal+this.taxes;
+        this.onCartChange.emit(true);
+        return;
+      }
+    }
+  }
+
   getItemCount() {
     return this.itemCount;
   }

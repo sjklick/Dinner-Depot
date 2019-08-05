@@ -95,4 +95,14 @@ export class CartComponent implements OnInit {
     this.onHideClick();
     this.state = State.Preview;
   }
+
+  onCartMinus(value: string) {
+    this.itemServ.decreaseQuantity(value);
+    this.cartChange(true);
+  }
+
+  onCartPlus(value: string) {
+    this.itemServ.increaseQuantity(value);
+    this.cartChange(true);
+  }
 }

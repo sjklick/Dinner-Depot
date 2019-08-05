@@ -4,6 +4,8 @@
       <tr *ngFor='let item of items'>
         <td>{{item.name}}</td>
         <td>{{item.quantity}}@{{item.price}}</td>
+        <td><button value={{item.name}} (click)='onCartMinus($event.target.value)'>-</button></td>
+        <td><button value={{item.name}} (click)='onCartPlus($event.target.value)'>+</button></td>
       </tr>
       <tr></tr>
       <tr>
