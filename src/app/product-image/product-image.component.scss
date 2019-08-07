@@ -1,5 +1,9 @@
 .product-image {
-	display: block;
+	display: flex;
 	width: 100px;
 	height: 100px;
+	background-color: gray;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
 }
